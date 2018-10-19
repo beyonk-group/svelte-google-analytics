@@ -106,11 +106,11 @@ this.refs.fb.enable()
 
 List of possible options in the module:
 
-| Option     | Default  | Required | Description                                                                               |
-|------------|----------|----------|-------------------------------------------------------------------------------------------|
-| trackingId | null     | true     | Your Google Analytics tracking code                                                       |
-| version    | v3.1     | false    | Tracking js version.                                                                      |
-| enabled    | true     | false    | Disable Google Analytics by default when initialized. Can be enabled later with  `<component>.enable()`. |
+| Option      | Default  | Required | Description                                                                               |
+|-------------|----------|----------|------------------------------------------------------|
+| trackingId  | null     | true     | Your Google Analytics tracking code                  |
+| trackerName | 'ga'     | false    | Global tracker name (i.e. window.ga)                 |
+| enabled     | true     | false    | Disable Google Analytics by default when initialized. Can be enabled later with  `<component>.enable()`. |
 
 ## License
 
