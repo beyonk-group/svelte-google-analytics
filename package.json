@@ -1,6 +1,6 @@
 {
   "name": "@beyonk/svelte-google-analytics",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "svelte": "src/GoogleAnalytics.html",
   "author": "Antony Jones",
   "module": "index.mjs",
