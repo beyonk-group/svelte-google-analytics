@@ -1,0 +1,24 @@
+{
+  "name": "@beyonk/svelte-google-analytics",
+  "version": "0.0.0",
+  "svelte": "src/GoogleAnalytics.html",
+  "module": "index.mjs",
+  "main": "index.js",
+  "scripts": {
+    "build": "rollup -c",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "rollup": "^0.57.1",
+    "rollup-plugin-svelte": "^4.1.0",
+    "svelte": "^1.60.0"
+  },
+  "keywords": [
+    "svelte"
+  ],
+  "files": [
+    "src",
+    "index.mjs",
+    "index.js"
+  ]
+}
