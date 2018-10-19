@@ -4,8 +4,7 @@
   export default {
     data () {
       return {
-        enabled: true,
-        version: 'v3.1'
+        enabled: true
       }
     },
 
@@ -15,7 +14,7 @@
         return
       }
 			
-      const { version, trackingId, track, enabled } = this.get()
+      const { trackingId, enabled } = this.get()
 
       if (!trackingId) {
         throw new Error('Google Analytics configuration parameter is required, try <GoogleAnalytics trackingId="12345" />')
