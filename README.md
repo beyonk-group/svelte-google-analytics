@@ -68,8 +68,17 @@ Just call the send method:
 Simply call the query method for things you need to track.
 
 ```js
-this.refs.ga.query('something', {
-	some: 'thing'
+this.refs.ga.query('someevent', 'event', 'Videos', 'play', 'Fall Campaign')
+```
+
+You can also use the multi-parameter format that Google Analytics supports:
+
+```js
+this.refs.ga.query('someevent', {
+  hitType: 'event',
+  eventCategory: 'Videos',
+  eventAction: 'play',
+  eventLabel: 'Fall Campaign'
 })
 ```
 

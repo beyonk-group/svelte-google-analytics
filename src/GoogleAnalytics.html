@@ -33,7 +33,7 @@
         m.parentNode.insertBefore(a,m);
       }
 			
-			scr(window, document, 'script', 'https://www.google-analytics.com/analytics.js', trackerName)
+			scr(window, document, 'script', '//www.google-analytics.com/analytics.js', trackerName, undefined, undefined)
       /* eslint-enable */
 
 			this.set({ ga: window[trackerName] })
@@ -54,18 +54,23 @@
         this.query('create', trackingId, 'auto')
       },
 
-      send (options) {
-        this.query('send', options)
+      send (...options) {
+        this.query('send', ...options)
       },
 
-      query (cmd, options) {
+      query (cmd, ...options) {
         const { ga } = this.get()
-        ga(cmd, options)
+
+        if (options.length === 1) {
+          ga(cmd, options[0])
+        } else {
+          ga(cmd, ...options)
+        }
+
       },
 
       plugin (name, fn) {
-        const { ga } = this.get()
-        ga('provide', name, fn)
+        this.query('provide', name, fn)
       }
     }
   }
