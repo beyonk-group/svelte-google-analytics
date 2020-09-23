@@ -19,7 +19,6 @@
 
     gaStore.subscribe(queue => {
       let running = true
-      let action
 
       while (running) {
         const item = queue.pop()
@@ -29,7 +28,7 @@
             gtag(item.type, gaMeasurementId, item.data)
             break
           case ('event'):
-            action = item.data.event_action
+            const action = item.data.event_action
             delete item.data.event_action
             gtag(item.type, action, item.data)
             break

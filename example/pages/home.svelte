@@ -8,11 +8,11 @@
     })
   })
 
-  function handleClick () {
+  function handleClick (buttonText) {
     ga.event({
-      event_action: 'BUTTON CLICK',
-      event_category: 'Homepage - svelte app',
-      event_label: 'Add to Cart'
+      event_category: 'on site navigation',
+      event_action: 'Click - Homepage main menu',
+      event_label: buttonText
     })
   }
 </script>
@@ -25,5 +25,7 @@
     <h1>Home Page</h1>
     <p>Welcome this is my website</p>
 
-    <button on:click={handleClick}>Add to Cart</button>
+    <button on:click={(e) => handleClick(e.target.innerText)}>Add to Cart</button>
+    <button on:click={(e) => handleClick(e.target.innerText)}>Contact</button>
+    <button on:click={(e) => handleClick('blog alternative label')}>blog</button>
 </main>

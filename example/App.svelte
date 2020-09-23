@@ -6,7 +6,7 @@
   export let url = ""
 </script>
 
-<GoogleAnalytics gaMeasurementId='GOOGLE ANALYTICS ID' />
+<GoogleAnalytics gaMeasurementId='UA-176940268-1' />
  
 <Router url="{url}">
  <nav>
