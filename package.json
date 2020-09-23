@@ -1,5 +1,5 @@
 {
-  "name": "@beyonk/svelte-google-ananlytics",
+  "name": "svelte-google-ananlytics",
   "svelte": "src/index.js",
   "module": "dist/index.mjs",
   "main": "dist/index.js",
