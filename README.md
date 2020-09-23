@@ -21,6 +21,7 @@ import { GoogleAnalytics } from '@beyonk/svelte-google-analytics'
 
 <GoogleAnalytics gaMeasurementId='GOOGLE ANALYTICS MEASUREMENT ID' />
 ```
+<p>&nbsp;</p>
 
 - ### Page Tracking
 Within the `onMount` of each page you would like to track
@@ -30,17 +31,27 @@ Within the `onMount` of each page you would like to track
   import { ga } from '@beyonk/svelte-google-analytics'
 
   onMount(() => {
-    ga.pageView()
+    ga.pageView({
+      page_path: window.location.pathname
+    })
   })
 </script>
 ```
 Optional parameters.  
 - page_title
 - page_location
-- page_path
 - send_page_view
 
+| Name            | Default           |     Type      | Required                                                                                                                 |
+| --              | --------          | ------------- | -------------------------------------------------------------------------------------------------------------------------|
+| page_path       | location.pathname |    string     |  Yes - otherwise the default value will be sent to google analytics which in a SPA will always be `/`                    |
+| page_title      | document.title    |    string     |   No - but useful for tracking - can be set using `<svelte:head>` or by passing this parameter                           |
+| send_page_view  | true | boolean    |       No      |                                                                                                                          |
+
+<p>&nbsp;</p>
+
 (see [Google Analytics offical docs - Pageviews](https://developers.google.com/analytics/devguides/collection/gtagjs/pages)) for more info
+<p>&nbsp;</p>
 
 - ### Event Tracking
 
@@ -61,7 +72,7 @@ Optional parameters.
   <button on:click={handleClick}>Add to Cart</button>
 </main>
 ```
-Pass in any valid action / options.  
+Pass in any valid event action / options.  
 (see [Google Analytics offical docs - Events](https://developers.google.com/analytics/devguides/collection/gtagjs/events)) for more info.
 
 
@@ -80,22 +91,22 @@ In `_layout.svelte`
 
 ```
 <script>
-	import { onMount } from 'svelte';
-	import { GoogleAnalytics, ga } from '@beyonk/svelte-google-analytics'	
-	import { stores } from '@sapper/app';
-	const { page } = stores()
+  import { onMount } from 'svelte'; 
+  import { GoogleAnalytics, ga } from '@beyonk/svelte-google-analytics'	
+  import { stores } from '@sapper/app';
+  const { page } = stores()
 
-	onMount(() => {
-		const unsubscribe = page.subscribe(({path}) => {
-			ga.pageView({
-				page_path: path
-			})
-		})
+  onMount(() => {
+    const unsubscribe = page.subscribe(({path}) => {
+      ga.pageView({
+        page_path: path
+      })
+    })
 
-		return () => {
-			unsubscribe()
-		}
-	})
+    return () => {
+      unsubscribe()
+    }
+  })
 </script>
 
 <GoogleAnalytics gaMeasurementId='GOOGLE ANALYTICS MEASUREMENT ID' />

@@ -4,12 +4,9 @@
 
   onMount(() => {
     ga.pageView({
-      page_path: window.location.pathname,
-      page_title: 'homepage - svelte app'
+      page_path: window.location.pathname
     })
   })
-
-  let pageName="Home Page";
 
   function handleClick () {
     ga.event({
@@ -20,11 +17,13 @@
   }
 </script>
 
-
+<svelte:head>
+  <title>Home</title>
+</svelte:head>
 
 <main>
-    <h1> {pageName}!</h1>
-    <p>Welcome this is my <b>{pageName}</b></p>
+    <h1>Home Page</h1>
+    <p>Welcome this is my website</p>
 
     <button on:click={handleClick}>Add to Cart</button>
 </main>

@@ -4,13 +4,16 @@
 
   onMount(() => {
     ga.pageView({
-      page_path: window.location.pathname,
-      page_title: 'aboutpage - svelte app'
+      page_path: window.location.pathname
     })
   })
 
     let pageName="About Page";
 </script>
+
+<svelte:head>
+  <title>About</title>
+</svelte:head>
 
 <main>
     <h1> {pageName}!</h1>

@@ -22,8 +22,7 @@ export default {
     { file: pkg.main, format: 'umd', name }
   ],
   plugins: [
-    svelte(dev ? { 
-      hydratable: true,
+    svelte(dev ? {
       dev: true,
       hot: {
         optimistic: true,

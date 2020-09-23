@@ -15,7 +15,6 @@
   }
 
   function callback () {
-    console.log('callback')
     gtag('js', new Date())
 
     gaStore.subscribe(queue => {
@@ -28,13 +27,11 @@
         switch (item.type) {
           case ('config'):
             gtag(item.type, gaMeasurementId, item.data)
-            console.log('page view sent to GA', item.data)
             break
           case ('event'):
             action = item.data.event_action
             delete item.data.event_action
             gtag(item.type, action, item.data)
-            console.log('event sent to GA', item.data)
             break
         }
 
