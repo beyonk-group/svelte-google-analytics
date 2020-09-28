@@ -5,10 +5,14 @@
 
   export let gaMeasurementId
 
-  function gtag () {
-    window.dataLayer = window.dataLayer || []
-    window.dataLayer.push(arguments)
-  }
+  onMount(() => {
+    loader([
+      { type: 'script', url: `https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}` }
+    ],
+    test,
+    callback
+    )
+  })
 
   function test () {
     return Boolean(window.dataLayer).valueOf()
@@ -21,9 +25,11 @@
       let running = true
 
       while (running) {
-        const item = queue.pop()
-
-        switch (item.type) {
+        if (!queue.length) {
+          running = false
+        } else {
+          const item = queue.pop()
+          switch (item.type) {
           case ('config'):
             gtag(item.type, gaMeasurementId, item.data)
             break
@@ -32,22 +38,15 @@
             delete item.data.event_action
             gtag(item.type, action, item.data)
             break
-        }
-
-        if (!queue.length) {
-          running = false
+          }
         }
       }
     })
   }
 
-  onMount(() => {
-    loader([
-      { type: 'script', url: `https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}` }
-    ],
-    test,
-    callback
-    )
-  })
+  function gtag () {
+    window.dataLayer = window.dataLayer || []
+    window.dataLayer.push(arguments)
+  }
 
 </script>
