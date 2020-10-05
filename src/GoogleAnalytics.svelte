@@ -7,7 +7,7 @@
 
   onMount(() => {
     loader([
-      { type: 'script', url: `https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}` }
+      { type: 'script', url: `//www.googletagmanager.com/gtag/js?id=${gaMeasurementId}` }
     ],
     test,
     callback
@@ -15,31 +15,28 @@
   })
 
   function test () {
-    return Boolean(window.dataLayer).valueOf()
+    return Boolean(window.dataLayer).valueOf() && Array.isArray(window.dataLayer)
   }
 
   function callback () {
     gtag('js', new Date())
 
-    gaStore.subscribe(queue => {
-      let running = true
+    return gaStore.subscribe(queue => {
+      let next = queue.length && queue.shift()
 
-      while (running) {
-        if (!queue.length) {
-          running = false
-        } else {
-          const item = queue.pop()
-          switch (item.type) {
-          case ('config'):
-            gtag(item.type, gaMeasurementId, item.data)
+      while (next) {
+        switch (next.type) {
+          case 'config':
+            gtag(next.type, gaMeasurementId, next.data)
             break
-          case ('event'):
-            const action = item.data.event_action
-            delete item.data.event_action
-            gtag(item.type, action, item.data)
+          case 'event':
+            const action = next.data.event_action
+            delete next.data.event_action
+            gtag(next.type, action, next.data)
             break
-          }
         }
+
+        next = queue.shift()
       }
     })
   }
@@ -48,5 +45,4 @@
     window.dataLayer = window.dataLayer || []
     window.dataLayer.push(arguments)
   }
-
 </script>

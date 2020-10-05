@@ -1,13 +1,13 @@
 import { gaStore } from './store.js'
 
-function sendToStore (type, data) {
+function pushEvent (type, data) {
   gaStore.update(exisiting => [ ...exisiting, { type, data } ])
 }
 
 export function pageView (options) {
-  sendToStore('config', options)
+  pushEvent('config', options)
 }
 
 export function event (options) {
-  sendToStore('event', options)
+  pushEvent('event', options)
 }
