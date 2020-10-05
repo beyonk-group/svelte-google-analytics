@@ -6,6 +6,11 @@
   export let gaMeasurementId
 
   onMount(() => {
+    if (!gaMeasurementId) {
+      console.error('svelte-google-analytics | gaMeasurementId must be defined')
+      return false
+    }
+    
     loader([
       { type: 'script', url: `https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}` }
     ],
