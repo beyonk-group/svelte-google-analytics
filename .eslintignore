@@ -7,3 +7,4 @@ rollup.config.js
 static
 src/stores/search-derived.js
 example
+dist

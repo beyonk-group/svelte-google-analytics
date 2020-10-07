@@ -23,6 +23,7 @@
 
     return gaStore.subscribe(queue => {
       let next = queue.length && queue.shift()
+      let action
 
       while (next) {
         switch (next.type) {
@@ -30,7 +31,7 @@
             gtag(next.type, gaMeasurementId, next.data)
             break
           case 'event':
-            const action = next.data.event_action
+            action = next.data.event_action
             delete next.data.event_action
             gtag(next.type, action, next.data)
             break
