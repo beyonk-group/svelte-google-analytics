@@ -10,7 +10,6 @@
     "lint": "eslint . --ext .svelte,.html,.js"
   },
   "devDependencies": {
-    "@beyonk/async-script-loader": "^2.0.0",
     "@beyonk/eslint-config": "^4.2.0",
     "@rollup/plugin-node-resolve": "^9.0.0",
     "eslint": "^7.9.0",
@@ -34,5 +33,8 @@
     "src",
     "dist"
   ],
-  "version": "1.0.1"
+  "version": "1.0.1",
+  "dependencies": {
+    "@beyonk/async-script-loader": "^2.0.0"
+  }
 }
