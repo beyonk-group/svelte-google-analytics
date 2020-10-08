@@ -4,8 +4,10 @@
   import { gaStore } from './store.js'
 
   export let gaMeasurementId
+  export let enabled = true
 
   onMount(() => {
+    if (!enabled) { return }
     loader([
       { type: 'script', url: `//www.googletagmanager.com/gtag/js?id=${gaMeasurementId}` }
     ],
