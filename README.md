@@ -21,7 +21,9 @@ import { GoogleAnalytics } from '@beyonk/svelte-google-analytics'
 
 <GoogleAnalytics gaMeasurementId='GOOGLE ANALYTICS MEASUREMENT ID' />
 ```
-<p>&nbsp;</p>
+Component accepts an `enabled` prop which is set to `true` by default.
+
+Logic can be added here to disable/enable analytics.
 
 - ### Page Tracking
 Within the `onMount` of each page you would like to track
@@ -97,15 +99,11 @@ In `_layout.svelte`
   const { page } = stores()
 
   onMount(() => {
-    const unsubscribe = page.subscribe(({path}) => {
+    return page.subscribe(({ path }) => {
       ga.pageView({
         page_path: path
       })
     })
-
-    return () => {
-      unsubscribe()
-    }
   })
 </script>
 
