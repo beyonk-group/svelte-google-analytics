@@ -6,9 +6,9 @@
   export let url = ""
 </script>
 
-<GoogleAnalytics gaMeasurementId='UA-176940268-1' />
+<GoogleAnalytics properties={[ 'G-1J8KHKSV5V' ]} />
  
-<Router url="{url}">
+<Router {url}>
  <nav>
     <Link to="/">Home</Link>
     <Link to="about">About</Link>

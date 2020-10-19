@@ -1,20 +1,9 @@
 <script>
   import { ga } from '../../src/index.js'
-  import { onMount } from 'svelte'
+  const { ecommerce, games } = ga
 
-  onMount(() => {
-    ga.pageView({
-      page_path: window.location.pathname
-    })
-  })
-
-  function handleClick (buttonText) {
-    ga.event({
-      event_category: 'on site navigation',
-      event_action: 'Click - Homepage main menu',
-      event_label: buttonText
-    })
-  }
+  const currency = 'SvelteBucks'
+  const items = [ { id: 'prd-1', name: 'Svelte Swag', quantity: 1, price: 10 } ]
 </script>
 
 <svelte:head>
@@ -22,10 +11,10 @@
 </svelte:head>
 
 <main>
-    <h1>Home Page</h1>
-    <p>Welcome this is my website</p>
+  <h1>Home Page</h1>
+  <p>Welcome this is my website</p>
 
-    <button on:click={(e) => handleClick(e.target.innerText)}>Add to Cart</button>
-    <button on:click={(e) => handleClick(e.target.innerText)}>Contact</button>
-    <button on:click={(e) => handleClick('blog alternative label')}>blog</button>
+  <button on:click={e => games.earnVirtualCurrency(currency, 50)}>Earn 50 SvelteBucks</button>
+  <button on:click={e => ecommerce.addToCart(currency, items, 10)}>Add Swag to Cart</button>
+  <button on:click={e => ecommerce.purchase('you', 'coupon-1', currency, items, `txn-${new Date().getTime()}`, 0, 0, 10)}>Purchase Swag</button>
 </main>

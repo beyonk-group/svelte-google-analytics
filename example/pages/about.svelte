@@ -1,14 +1,5 @@
 <script>
-  import { ga } from '../../src/index.js'
-  import { onMount } from 'svelte'
-
-  onMount(() => {
-    ga.pageView({
-      page_path: window.location.pathname
-    })
-  })
-
-    let pageName="About Page";
+  let pageName="About Page";
 </script>
 
 <svelte:head>

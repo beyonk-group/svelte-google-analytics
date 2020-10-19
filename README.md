@@ -6,111 +6,71 @@
 
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com) [![Svelte v3](https://img.shields.io/badge/svelte-v3-blueviolet.svg)](https://svelte.dev)
 
+Supports Google Analytics v4!
 
+## Install the package
 
-### Install the package
-
-```
+```bash
 npm i --save-dev @beyonk/svelte-google-analytics
 ```
 
-## **Usage (Svelte Project)**
+## **Usage**
 In `App.svelte`
-```
+```svelte
 import { GoogleAnalytics } from '@beyonk/svelte-google-analytics'
 
-<GoogleAnalytics gaMeasurementId='GOOGLE ANALYTICS MEASUREMENT ID' />
+<GoogleAnalytics properties={[ 'google property id A', ...'google property id X' ]} />
 ```
 Component accepts an `enabled` prop which is set to `true` by default.
 
 Logic can be added here to disable/enable analytics.
 
-- ### Page Tracking
-Within the `onMount` of each page you would like to track
-```
-<script>
-  import { onMount } from 'svelte'
-  import { ga } from '@beyonk/svelte-google-analytics'
-
-  onMount(() => {
-    ga.pageView({
-      page_path: window.location.pathname
-    })
-  })
-</script>
-```
-Optional parameters.  
-- page_title
-- page_location
-- send_page_view
-
-| Name            | Default           |     Type      | Required                                                                                                                 |
-| --              | --------          | ------------- | -------------------------------------------------------------------------------------------------------------------------|
-| page_path       | location.pathname |    string     |  Yes - otherwise the default value will be sent to google analytics which in a SPA will always be `/`                    |
-| page_title      | document.title    |    string     |   No - but useful for tracking - can be set using `<svelte:head>` or by passing this parameter                           |
-| send_page_view  | true | boolean    |       No      |                                                                                                                          |
-
-<p>&nbsp;</p>
+### Page Tracking
+With Google Analytics v4, most basic events are automatic. See [the docs](https://support.google.com/analytics/answer/9234069)
 
 (see [Google Analytics offical docs - Pageviews](https://developers.google.com/analytics/devguides/collection/gtagjs/pages)) for more info
 <p>&nbsp;</p>
 
-- ### Event Tracking
+### Event Tracking
 
-```
+All [events specified in the documentation](https://support.google.com/analytics/answer/9267735?hl=en&ref_topic=9756175) are implemeneted (generated automatically from scraping the docs pages and building the project!)
+
+```svelte
 <script>
   import { ga } from '@beyonk/svelte-google-analytics'
 
   function handleClick () {
-    ga.event({
-      event_action: 'BUTTON CLICK',
-      event_category: 'Homepage - svelte app',
-      event_label: 'Add to Cart'
-    })
+    ga.earnVirtualCurrency('SvelteBucks', 50)
   }
 </script>
 
 <main>
-  <button on:click={handleClick}>Add to Cart</button>
+  <button on:click={handleClick}>Get 50 SvelteBucks</button>
 </main>
 ```
-Pass in any valid event action / options.  
-(see [Google Analytics offical docs - Events](https://developers.google.com/analytics/devguides/collection/gtagjs/events)) for more info.
 
+#### Custom Events
 
+Custom events can be tracked with `addEvent`:
 
-
-<p>&nbsp;</p>
-
-
----
-
-<p>&nbsp;</p>
-
-## **Usage (Svelte/Sapper Project)**
-- ### Page Tracking
-In `_layout.svelte`
-
-```
+```svelte
 <script>
-  import { onMount } from 'svelte'; 
-  import { GoogleAnalytics, ga } from '@beyonk/svelte-google-analytics'	
-  import { stores } from '@sapper/app';
-  const { page } = stores()
+  import { ga } from '@beyonk/svelte-google-analytics'
 
-  onMount(() => {
-    return page.subscribe(({ path }) => {
-      ga.pageView({
-        page_path: path
-      })
+  function handleClick () {
+    ga.addEvent('event_name', {
+      foo: 'bar',
+      baz: 'qux'
     })
-  })
+  }
 </script>
-
-<GoogleAnalytics gaMeasurementId='GOOGLE ANALYTICS MEASUREMENT ID' />
 ```
-You are subscribing to the page store so that every time the page path changes a new pageView object will be sent to google analytics.  This block is only required once in your project.
 
-- ### Event Tracking
-Use same method as in a Svelte project shown above.
 
+#### Multiple Properties
+
+To send an event to a different property, specify the property id as the last parameter to the event: `send_to`.
+
+```js
+ga.earnVirtualCurrency('SvelteBucks', 50, 'Property Id B')
+```

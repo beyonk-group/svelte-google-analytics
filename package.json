@@ -6,14 +6,19 @@
   "scripts": {
     "dev": "WATCH=true nollup -c --hot --port 5000 --content-base ./public -s",
     "build": "rollup -c",
+    "generate:events": "node ./scripts/generate-events.js",
     "prepublishOnly": "npm run build",
     "lint": "eslint . --ext .svelte,.html,.js"
   },
   "devDependencies": {
     "@beyonk/eslint-config": "^4.2.0",
     "@rollup/plugin-node-resolve": "^9.0.0",
+    "cheerio": "^1.0.0-rc.3",
     "eslint": "^7.9.0",
     "eslint-plugin-svelte3": "^2.7.3",
+    "just-camel-case": "^4.0.2",
+    "just-flatten": "^1.0.0",
+    "node-fetch": "^2.6.1",
     "nollup": "^0.13.9",
     "rollup": "^2.26.6",
     "rollup-plugin-hot": "^0.1.0",

@@ -3,13 +3,17 @@
   import loader from '@beyonk/async-script-loader'
   import { gaStore } from './store.js'
 
-  export let gaMeasurementId
+  export let properties
   export let enabled = true
 
   onMount(() => {
     if (!enabled) { return }
+    const mainProperty = properties[0]
     loader([
-      { type: 'script', url: `//www.googletagmanager.com/gtag/js?id=${gaMeasurementId}` }
+      {
+        type: 'script',
+        url: `//www.googletagmanager.com/gtag/js?id=${mainProperty}`
+      }
     ],
     test,
     callback
@@ -20,32 +24,25 @@
     return Boolean(window.dataLayer).valueOf() && Array.isArray(window.dataLayer)
   }
 
+  function gtag () {
+    window.dataLayer.push(arguments)
+  }
+
   function callback () {
+    window.dataLayer = window.dataLayer || []
     gtag('js', new Date())
+    properties.forEach(p => {
+      gtag('config', p)
+    })
 
     return gaStore.subscribe(queue => {
       let next = queue.length && queue.shift()
-      let action
 
       while (next) {
-        switch (next.type) {
-          case 'config':
-            gtag(next.type, gaMeasurementId, next.data)
-            break
-          case 'event':
-            action = next.data.event_action
-            delete next.data.event_action
-            gtag(next.type, action, next.data)
-            break
-        }
-
+        const { event, data } = next
+        gtag('event', event, data)
         next = queue.shift()
       }
     })
-  }
-
-  function gtag () {
-    window.dataLayer = window.dataLayer || []
-    window.dataLayer.push(arguments)
   }
 </script>
