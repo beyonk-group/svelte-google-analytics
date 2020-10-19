@@ -1,5 +1,5 @@
 <script>
-  let pageName="About Page";
+  const pageName = 'About Page'
 </script>
 
 <svelte:head>

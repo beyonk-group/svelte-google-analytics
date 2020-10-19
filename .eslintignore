@@ -1,2 +1,3 @@
 node_modules
 src/generated-functions.js
+example/main.js
