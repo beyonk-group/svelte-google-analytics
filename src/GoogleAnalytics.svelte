@@ -33,7 +33,7 @@
     window.dataLayer = window.dataLayer || []
     gtag('js', new Date())
     properties.forEach(p => {
-      gtag('config', p, configurations[p])
+      gtag('config', p, configurations[p] || {})
     })
 
     return gaStore.subscribe(queue => {
