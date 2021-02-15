@@ -4,6 +4,7 @@
   import { gaStore } from './store.js'
 
   export let properties
+  export let configurations = {}
   export let enabled = true
 
   onMount(() => {
@@ -32,7 +33,8 @@
     window.dataLayer = window.dataLayer || []
     gtag('js', new Date())
     properties.forEach(p => {
-      gtag('config', p)
+      const propertyConfig = configurations && configurations[p] || undefined
+      gtag('config', p, propertyConfig)
     })
 
     return gaStore.subscribe(queue => {
