@@ -21,8 +21,19 @@ import { GoogleAnalytics } from '@beyonk/svelte-google-analytics'
 
 <GoogleAnalytics properties={[ 'google property id A', ...'google property id X' ]} />
 ```
-Component accepts an `enabled` prop which is set to `true` by default.
+Component accepts two additional properties: `enabled` and `configurations`.
+### The `configurations` property (optional)
+`configurations` props which accepts an object type with configurations for the properties. The key in this object is the id of the property.  
+Example on disabling automatic pageviews for the `id-1` property: 
 
+```svelte
+<GoogleAnalytics 
+    properties={[ 'id-1' ]} 
+    configurations={{ 'id-1': { 'send_page_view': false } }} />
+```
+
+### The `enabled` property (optional)
+The `enabled` prop set to `true` by default.
 Logic can be added here to disable/enable analytics.
 
 ### Page Tracking
