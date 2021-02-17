@@ -36,6 +36,21 @@ Example on disabling automatic pageviews for the `id-1` property:
 The `enabled` prop set to `true` by default.
 Logic can be added here to disable/enable analytics.
 
+If you disable tracking by default, for instance, due to [GDPR](https://github.com/beyonk-adventures/gdpr-cookie-consent-banner), then you can enable it later by calling `init()` on your component:
+
+```svelte
+<GoogleAnalytics 
+    bind:this={ga}
+    properties={[ 'id-1' ]} 
+    enabled={false} />
+
+<script>
+  function enableAnalytics () {
+    ga.init()
+  }
+</script>
+```
+
 ### Page Tracking
 With Google Analytics v4, most basic events are automatic. See [the docs](https://support.google.com/analytics/answer/9234069)
 

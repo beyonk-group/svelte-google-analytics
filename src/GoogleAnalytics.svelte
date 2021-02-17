@@ -9,6 +9,10 @@
 
   onMount(() => {
     if (!enabled) { return }
+    init()
+  })
+
+  export function init () {
     const mainProperty = properties[0]
     loader([
       {
@@ -19,7 +23,7 @@
     test,
     callback
     )
-  })
+  }
 
   function test () {
     return Boolean(window.dataLayer).valueOf() && Array.isArray(window.dataLayer)
