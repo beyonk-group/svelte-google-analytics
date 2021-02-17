@@ -38,7 +38,7 @@
     "src",
     "dist"
   ],
-  "version": "2.1.1",
+  "version": "2.2.0",
   "dependencies": {
     "@beyonk/async-script-loader": "^2.0.0"
   }
