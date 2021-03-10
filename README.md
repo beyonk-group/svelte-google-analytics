@@ -66,7 +66,7 @@ All [events specified in the documentation](https://support.google.com/analytics
   import { ga } from '@beyonk/svelte-google-analytics'
 
   function handleClick () {
-    ga.earnVirtualCurrency('SvelteBucks', 50)
+    ga.games.earnVirtualCurrency('SvelteBucks', 50)
   }
 </script>
 
@@ -98,5 +98,5 @@ Custom events can be tracked with `addEvent`:
 To send an event to a different property, specify the property id as the last parameter to the event: `send_to`.
 
 ```js
-ga.earnVirtualCurrency('SvelteBucks', 50, 'Property Id B')
+ga.games.earnVirtualCurrency('SvelteBucks', 50, 'Property Id B')
 ```
