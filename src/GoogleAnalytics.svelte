@@ -44,8 +44,8 @@
       let next = queue.length && queue.shift()
 
       while (next) {
-        const { event, data } = next
-        gtag('event', event, data)
+        const { type, event, data } = next
+        gtag(type, event, data)
         next = queue.shift()
       }
     })
