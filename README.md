@@ -100,3 +100,14 @@ To send an event to a different property, specify the property id as the last pa
 ```js
 ga.games.earnVirtualCurrency('SvelteBucks', 50, 'Property Id B')
 ```
+
+#### Set User Properties
+To split user to different segment, such as language preference or geographic location, set the Properties with `setUserProperties` and setup custom dimension on Google Analytics dashboard. For more information see [Google Analytics Documentation](https://developers.google.com/analytics/devguides/collection/ga4/user-properties).
+
+```js
+ga.setUserProperties({
+  favorite_composer: 'Mahler',
+  favorite_instrument: 'double bass',
+  season_ticketholder: 'true'
+})
+```

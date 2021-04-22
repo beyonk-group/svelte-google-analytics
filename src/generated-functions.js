@@ -2,7 +2,11 @@
     import { gaStore } from './store.js'
   function addEvent (event, data) {
     if (!data.send_to) { delete data.send_to }
-    gaStore.update(exisiting => [ ...exisiting, { event, data } ])
+    gaStore.update(exisiting => [ ...exisiting, {type: 'event', event, data } ])
+  }
+
+  function setUserProperties(data) {
+    gaStore.update(exisiting => [ ...exisiting, {type: 'set', event: 'user_properties', data}])
   }
 
       /**
@@ -380,6 +384,7 @@
 ecommerce,
 retail,
 travel,
-games
+games,
+setUserProperties
     }
   
