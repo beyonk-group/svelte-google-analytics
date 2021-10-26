@@ -9,6 +9,10 @@
     gaStore.update(exisiting => [ ...exisiting, {type: 'set', event: 'user_properties', data}])
   }
 
+  function setUserId(id) {
+    gaStore.update(exisiting => [ ...exisiting, {type: 'set', event: 'userId', id}]);
+  }
+
       /**
        * all events
        * https://support.google.com/analytics/answer/9267735
@@ -385,6 +389,7 @@ ecommerce,
 retail,
 travel,
 games,
-setUserProperties
+setUserProperties,
+setUserId
     }
   

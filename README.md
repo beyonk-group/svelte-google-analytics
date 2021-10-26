@@ -111,3 +111,10 @@ ga.setUserProperties({
   season_ticketholder: 'true'
 })
 ```
+
+#### Set User Id
+To identify user inside GA and link their sessions together, set the Properties with `setUserId`.
+
+```js
+ga.setUserId('user_id_here')
+```
