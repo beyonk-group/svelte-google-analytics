@@ -11,6 +11,7 @@
     "lint": "eslint . --ext .svelte,.html,.js"
   },
   "devDependencies": {
+    "@beyonk/async-script-loader": "^2.2.1",
     "@beyonk/eslint-config": "^4.2.0",
     "@rollup/plugin-node-resolve": "^9.0.0",
     "cheerio": "^1.0.0-rc.3",
@@ -38,8 +39,5 @@
     "src",
     "dist"
   ],
-  "version": "2.2.0",
-  "dependencies": {
-    "@beyonk/async-script-loader": "^2.0.0"
-  }
+  "version": "2.2.0"
 }
