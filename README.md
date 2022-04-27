@@ -27,12 +27,12 @@ import { GoogleAnalytics } from '@beyonk/svelte-google-analytics'
 ```
 Component accepts two additional properties: `enabled` and `configurations`.
 ### The `configurations` property (optional)
-`configurations` props which accepts an object type with configurations for the properties. The key in this object is the id of the property.  
-Example on disabling automatic pageviews for the `id-1` property: 
+`configurations` props which accepts an object type with configurations for the properties. The key in this object is the id of the property.
+Example on disabling automatic pageviews for the `id-1` property:
 
 ```svelte
-<GoogleAnalytics 
-    properties={[ 'id-1' ]} 
+<GoogleAnalytics
+    properties={[ 'id-1' ]}
     configurations={{ 'id-1': { 'send_page_view': false } }} />
 ```
 
@@ -43,9 +43,9 @@ Logic can be added here to disable/enable analytics.
 If you disable tracking by default, for instance, due to [GDPR](https://github.com/beyonk-adventures/gdpr-cookie-consent-banner), then you can enable it later by calling `init()` on your component:
 
 ```svelte
-<GoogleAnalytics 
+<GoogleAnalytics
     bind:this={ga}
-    properties={[ 'id-1' ]} 
+    properties={[ 'id-1' ]}
     enabled={false} />
 
 <script>
@@ -114,4 +114,11 @@ ga.setUserProperties({
   favorite_instrument: 'double bass',
   season_ticketholder: 'true'
 })
+```
+
+#### Set User Id
+To identify user inside GA and link their sessions together, set the Properties with `setUserId`.
+
+```js
+ga.setUserId('user_id_here')
 ```
