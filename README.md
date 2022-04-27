@@ -122,3 +122,11 @@ To identify user inside GA and link their sessions together, set the Properties 
 ```js
 ga.setUserId('user_id_here')
 ```
+
+
+#### Set config
+To add a Google Analytics ID after initialization call the `setConfig` and pass optional configuration options.
+
+```js
+ga.setConfig('ga_id', opts)
+```

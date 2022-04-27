@@ -70,6 +70,10 @@ function setUserProperties (data) {
 
 function setUserId (id) {
   gaStore.update(exisiting => [ ...exisiting, { type: 'set', event: 'userId', data: id } ]);
+}
+
+function setConfig (id, config = {}) {
+  gaStore.update(exisiting => [ ...exisiting, { type: 'config', event: id, data: config } ]);
 }`
 
   const categories = loaded.map(({ prefix, articleId, mappings }) => {
@@ -106,6 +110,7 @@ export {
   addEvent,
   setUserProperties,
   setUserId,
+  setConfig,
   ${groups}
 }
 `
