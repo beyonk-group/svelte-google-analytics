@@ -100,7 +100,7 @@ const ${prefix} = {
 }`
   })
 
-  const groups = loaded.map(({ prefix }) => prefix).join(',\n')
+  const groups = loaded.map(({ prefix }) => prefix).join(',\n  ')
 
   return `${generated}
 

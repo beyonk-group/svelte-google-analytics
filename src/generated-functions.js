@@ -10,17 +10,21 @@ function addEvent (event, data) {
   gaStore.update(exisiting => [ ...exisiting, { type: 'event', event, data } ])
 }
 
-function setUserProperties(data) {
+function setUserProperties (data) {
   gaStore.update(exisiting => [ ...exisiting, { type: 'set', event: 'user_properties', data } ])
 }
 
-function setUserId(id) {
-  gaStore.update(exisiting => [ ...exisiting, { type: 'set', event: 'userId', id } ]);
+function setUserId (id) {
+  gaStore.update(exisiting => [ ...exisiting, { type: 'set', event: 'userId', data: id } ]);
+}
+
+function setConfig (id, config = {}) {
+  gaStore.update(exisiting => [ ...exisiting, { type: 'config', event: id, data: config } ]);
 }
 
 /**
  * all events
- * https://support.google.com/analytics/answer/9267735
+ * @see https://support.google.com/analytics/answer/9267735
  **/
 const all = {
   /**
@@ -338,7 +342,7 @@ const all = {
 
 /**
  * ecommerce events
- * https://support.google.com/analytics/answer/9268036
+ * @see https://support.google.com/analytics/answer/9268036
  **/
 const ecommerce = {
   /**
@@ -656,7 +660,7 @@ const ecommerce = {
 
 /**
  * retail events
- * https://support.google.com/analytics/answer/9268037
+ * @see https://support.google.com/analytics/answer/9268037
  **/
 const retail = {
   /**
@@ -974,7 +978,7 @@ const retail = {
 
 /**
  * travel events
- * https://support.google.com/analytics/answer/9267738
+ * @see https://support.google.com/analytics/answer/9267738
  **/
 const travel = {
   /**
@@ -1292,7 +1296,7 @@ const travel = {
 
 /**
  * games events
- * https://support.google.com/analytics/answer/9267565
+ * @see https://support.google.com/analytics/answer/9267565
  **/
 const games = {
   /**
@@ -1612,9 +1616,10 @@ export {
   addEvent,
   setUserProperties,
   setUserId,
+  setConfig,
   all,
-ecommerce,
-retail,
-travel,
-games
+  ecommerce,
+  retail,
+  travel,
+  games
 }
