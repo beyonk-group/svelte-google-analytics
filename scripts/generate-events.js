@@ -21,69 +21,99 @@ async function loadPage (articleId) {
 
   const $ = cheerio.load(html)
 
-  return $('.nice-table tbody')
-    .children()
-    .filter(i => i !== 0)
-    .map((i, tr) => {
-      const [ event, trigger, parameters ] = tr
-        .children
-        .filter(node => node.type === 'tag')
+  console.log(`Loading events for ${articleId}`)
 
-      const params = parameters.children[0].data
+  const events = $('.nice-table > tbody > tr')
+    .toArray()
+    .filter(row => !row.children.find(cell => cell.name === 'th'))
+    .map(row => row.children.filter(cell => cell.name === 'td'))
+    .filter(cells => cells.length > 0)
+    .map(([ linkCell, triggerCell ]) => {
+      const link = linkCell.children[0]
 
       return {
-        event: event.children[0].data,
-        trigger: trigger.children[0].data,
-        parameters: params === 'No parameters' ? [] : [ ...params.split(',').map(p => p.trim()), 'send_to' ]
+        event: link.children[0].data,
+        href: link.attribs.href,
+        trigger: triggerCell.children[0].data
       }
     })
-    .toArray()
+
+  return events
 }
 
 async function scrapeEvents (pages) {
-  return Promise.all(pages.map(async ({ prefix, articleId }) => ({ prefix, articleId, mappings: await loadPage(articleId) })))
+  return Promise.all(
+    pages.map(async ({ prefix, articleId }) => ({
+      prefix,
+      articleId,
+      mappings: await loadPage(articleId)
+    }))
+  )
 }
 
 function generateEvents (loaded) {
-  const generated = `import { gaStore } from './store.js'
-  function addEvent (event, data) {
-    if (!data.send_to) { delete data.send_to }
-    gaStore.update(exisiting => [ ...exisiting, { event, data } ])
-  }
-`
+  const generated = `/**
+ * ------------------------------------------------------------
+ * GENERATED FILE. DO NOT DIRECTLY EDIT
+ * ------------------------------------------------------------
+ **/
+import { gaStore } from './store.js'
+
+function addEvent (event, data) {
+  if (!data.send_to) { delete data.send_to }
+  gaStore.update(exisiting => [ ...exisiting, { type: 'event', event, data } ])
+}
+
+function setUserProperties (data) {
+  gaStore.update(exisiting => [ ...exisiting, { type: 'set', event: 'user_properties', data } ])
+}
+
+function setUserId (id) {
+  gaStore.update(exisiting => [ ...exisiting, { type: 'set', event: 'userId', data: id } ]);
+}
+
+function setConfig (id, config = {}) {
+  gaStore.update(exisiting => [ ...exisiting, { type: 'config', event: id, data: config } ]);
+}`
 
   const categories = loaded.map(({ prefix, articleId, mappings }) => {
     const events = mappings
       .map(e => {
-        const { event, trigger, parameters } = e
-        const params = parameters.join(', ')
+        const { event, href, trigger } = e
         const eventName = camelCase(event)
 
         return `/**
-          * ${trigger.trim()}
-          **/
-          ${eventName}: function eventName (${params}) {
-            addEvent('${event}', { ${params} })
-          }`
+   * ${trigger.trim()}
+   * @see ${href}
+   **/
+  ${eventName}: function eventName (params = {}) {
+    addEvent('${event}', params)
+  }`
       })
 
-    return `
-      /**
-       * ${prefix} events
-       * ${docsUrl}/${articleId}
-       * **/
-      const ${prefix} = { ${events.join(',')} }
-    `
+    return `/**
+ * ${prefix} events
+ * @see ${docsUrl}/${articleId}
+ **/
+const ${prefix} = {
+  ${events.join(',\n\n  ')}
+}`
   })
 
-  const groups = loaded.map(({ prefix }) => prefix).join(',\n')
-  return `
-    ${generated}${categories.join('\n')}
-    export {
-      addEvent,
-      ${groups}
-    }
-  `
+  const groups = loaded.map(({ prefix }) => prefix).join(',\n  ')
+
+  return `${generated}
+
+${categories.join('\n\n')}
+
+export {
+  addEvent,
+  setUserProperties,
+  setUserId,
+  setConfig,
+  ${groups}
+}
+`
 }
 
 scrapeEvents(helpArticles)
