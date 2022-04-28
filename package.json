@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "WATCH=true nollup -c --hot --port 5000 --content-base ./public -s",
     "build": "rollup -c",
-    "generate:events": "node ./scripts/generate-events.js",
     "prepublishOnly": "npm run build",
     "lint": "eslint . --ext .svelte,.html,.js"
   },
