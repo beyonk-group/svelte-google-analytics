@@ -1,3 +1,4 @@
 node_modules
-src/generated-functions.js
+dist
+src/functions.js
 example/main.js
