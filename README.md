@@ -15,7 +15,7 @@ Supports Google Analytics v4!
 ## Install the package
 
 ```bash
-npm i --save-dev @beyonk/svelte-google-analytics
+pnpm i --save-dev @beyonk/svelte-google-analytics
 ```
 
 ## **Usage**
