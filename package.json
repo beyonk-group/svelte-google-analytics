@@ -38,7 +38,7 @@
     "src",
     "dist"
   ],
-  "version": "2.6.3",
+  "version": "2.6.4",
   "volta": {
     "node": "16.15.0"
   },
