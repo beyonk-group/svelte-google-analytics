@@ -2,7 +2,7 @@
 import { gaStore } from './store.js'
 
 function addEvent (event, data) {
-  if (!data.send_to) { delete data.send_to }
+  if (data && !data.send_to) { delete data.send_to }
   gaStore.update(exisiting => [ ...exisiting, { type: 'event', event, data } ])
 }
 
