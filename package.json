@@ -1,6 +1,11 @@
 {
   "name": "@beyonk/svelte-google-analytics",
   "svelte": "src/index.js",
+  "exports": {
+    ".": {
+      "svelte": "src/index.js"
+    }
+  },
   "module": "dist/index.mjs",
   "main": "dist/index.js",
   "scripts": {
